@@ -35,14 +35,14 @@ class ExampleServiceIntegrationTest @Autowired constructor(
             val exampleModel = exampleJpaRepository.save(ExampleModel(name = "예시 제목", description = "예시 설명"))
 
             // act
-            val exampleInfo = exampleService.getExample(exampleModel.id)
+            val result = exampleService.getExample(exampleModel.id)
 
             // assert
             assertAll(
-                { assertThat(exampleInfo).isNotNull() },
-                { assertThat(exampleInfo.id).isEqualTo(exampleModel.id) },
-                { assertThat(exampleInfo.name).isEqualTo(exampleModel.name) },
-                { assertThat(exampleInfo.description).isEqualTo(exampleModel.description) },
+                { assertThat(result).isNotNull() },
+                { assertThat(result.id).isEqualTo(exampleModel.id) },
+                { assertThat(result.name).isEqualTo(exampleModel.name) },
+                { assertThat(result.description).isEqualTo(exampleModel.description) },
             )
         }
 

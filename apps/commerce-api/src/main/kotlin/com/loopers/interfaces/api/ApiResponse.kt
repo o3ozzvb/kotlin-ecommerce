@@ -1,12 +1,10 @@
 package com.loopers.interfaces.api
 
-@ConsistentCopyVisibility
-data class ApiResponse<T> private constructor(
+data class ApiResponse<T>(
     val meta: Metadata,
     val data: T?,
 ) {
-    @ConsistentCopyVisibility
-    data class Metadata private constructor(
+    data class Metadata(
         val result: Result,
         val errorCode: String?,
         val message: String?,

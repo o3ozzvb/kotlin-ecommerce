@@ -56,7 +56,7 @@ class ExampleV1ApiE2ETest @Autowired constructor(
             )
         }
 
-        @DisplayName("ID 없이 요청하면, 400 BAD_REQUEST 응답을 받는다.")
+        @DisplayName("숫자가 아닌 ID 로 요청하면, 400 BAD_REQUEST 응답을 받는다.")
         @Test
         fun throwsBadRequest_whenIdIsNotProvided() {
             // arrange
@@ -68,7 +68,7 @@ class ExampleV1ApiE2ETest @Autowired constructor(
 
             // assert
             assertAll(
-                { assert(response.statusCode.is4xxClientError) },
+                { assertThat(response.statusCode.is4xxClientError).isTrue },
                 { assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST) },
             )
         }

@@ -7,9 +7,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PrePersist
 import jakarta.persistence.PreUpdate
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.ZonedDateTime
-
 
 /**
  * 생성/수정/삭제 정보를 자동으로 관리해준다.

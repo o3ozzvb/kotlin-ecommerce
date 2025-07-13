@@ -7,7 +7,7 @@ import org.testcontainers.utility.DockerImageName
 @Configuration
 class MySqlTestContainersConfig {
     companion object {
-        private val mySqlContainer: MySQLContainer<*> = MySQLContainer(DockerImageName.parse("mysql:5.7"))
+        private val mySqlContainer: MySQLContainer<*> = MySQLContainer(DockerImageName.parse("mysql:8.0"))
             .apply {
                 withDatabaseName("loopers")
                 withUsername("test")

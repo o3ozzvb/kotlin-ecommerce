@@ -1,4 +1,4 @@
-rootProject.name = "loopers-kotlin-spring-template"
+rootProject.name = "kotlin-ecommerce"
 
 include(
     ":apps:commerce-api",

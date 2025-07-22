@@ -8,7 +8,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Entity
-@Table(name = "users")
+@Table(name = "member")
 data class User(
     val userId: String,
     val email: String,

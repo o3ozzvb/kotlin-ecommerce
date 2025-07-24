@@ -2,31 +2,53 @@
 ## 1. 좋아요 등록
 ```mermaid
 sequenceDiagram
-	participant User
-	participant Like
-	participant Product
+    actor Users
+    participant PLC as ProductLikeController
+    participant PLF as ProductLikeFacade
+    participant US as UserService
+    participant LS as LikeService
+	participant PLS as ProductLikeService
+
+    Users->>+PLC: POST /products/{id}/like
+	PLC->>PLF: 좋아요 등록 요청
+	PLF->>+US: 사용자 조회
+	alt 사용자가 존재하지 않을 경우
+	US-->>-PLF: throw 401 Unauthorized
+	end
 	
-	User->>+Like: POST /products/{id}/like
-	
+	PLF->>+LS: 좋아요 조회  
 	alt 좋아요가 존재하지 않을 경우
-	Like->>Like: save(user_id, product_id)
-	Like->>-Product: likeCount + 1
-end
+	LS->>LS: save(userId, productId)
+	PLS->>PLS: save(productId, likeCount++)
+	else 좋아요가 존재하면
+	LS-->>-PLF: Do Nothing
+	end
 ```
 
 ## 2. 좋아요 취소
 ```mermaid
 sequenceDiagram
-	participant User
-	participant Like
-	participant Product
-	
-	User->>+Like: POST /products/{id}/like
-	
-alt 좋아요가 존재하는 경우
-	Like->>Like: delete()
-	Like->>-Product: likeCount - 1
-end
+    actor Users
+    participant PLC as ProductLikeController
+    participant PLF as ProductLikeFacade
+    participant US as UserService
+    participant LS as LikeService
+    participant PLS as ProductLikeService
+
+    Users->>+PLC: POST /products/{id}/unlike
+    PLC->>PLF: 좋아요 등록 요청
+    PLF->>+US: 사용자 조회
+    alt 사용자가 존재하지 않을 경우
+        US-->>-PLF: throw 401 Unauthorized
+    end
+
+    PLF->>+LS: 좋아요 조회
+    alt 좋아요가 존재하지 않을 경우
+        LS-->>-PLF: Do Nothing
+    else 좋아요가 존재하면
+        LS->>LS: delete(userId, productId)
+        PLS->>PLS: save(productId, likeCount--)
+    end
 ```
 
 ## 3. 주문 요청

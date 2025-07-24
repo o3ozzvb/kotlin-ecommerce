@@ -7,15 +7,17 @@ classDiagram
     -brand: Brand
     -inventory: Inventory 
     -price: BigDecimal
-    -likeCount: int
-    +like()
-    +unlike()
     +consumeStock(quantity: Int)
     +addStock(quantity: Int)
     +getLikeCount(): Int
     +isAvailable(): Boolean
     +updatePrice(price: BigDecimal)
-    
+  }
+  class ProductLike { 
+      -productId: Long
+      -likeCount: Long
+      +like()
+      +unlike()
   }
   class Inventory {
 	  -totalStock: Int 
@@ -117,7 +119,6 @@ classDiagram
   
   Like --> Product
   
-  Order --> OrderStatus
   Order --> OrderItem
   Order --> IssuedCoupon
   
@@ -125,9 +126,5 @@ classDiagram
   
   Payment --> Order
   
-  Coupon --> DiscountType
-  Coupon --> CouponStatus
   Coupon --> IssuedCoupon
-  
-  IssuedCoupon --> IssuedCouponStatus
 ```

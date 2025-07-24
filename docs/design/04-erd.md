@@ -37,11 +37,15 @@ erDiagram
         bigint brand_id FK
         bigint inventory_id FK
         decimal price
-        int like_count
         datetime created_at
         varchar created_by
         datetime updated_at
         varchar updated_by
+    }
+    
+    PRODUCT_LIKE {
+        bigint product_id PK
+        bigint like_count
     }
     
     INVENTORY {

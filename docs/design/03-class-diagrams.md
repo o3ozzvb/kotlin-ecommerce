@@ -9,7 +9,6 @@ classDiagram
     -price: BigDecimal
     +consumeStock(quantity: Int)
     +addStock(quantity: Int)
-    +getLikeCount(): Int
     +isAvailable(): Boolean
     +updatePrice(price: BigDecimal)
   }
@@ -27,15 +26,11 @@ classDiagram
 	  +add(quantity: Int)
 	  +reserve(quantity: Int): Boolean
 	  +releaseReservation(quantity: Int)
-		+getTotalStock(): Int
-		+getActualStock(): Int
-	  +getAvailableStock(): Int
   }
   class Brand {
     -id: Long 
     -name: String
     -description: String
-    +getProducts(): List~Product~
   }
   class Like {
     -member: Member 

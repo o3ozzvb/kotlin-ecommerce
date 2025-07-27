@@ -45,7 +45,7 @@ classDiagram
     -id: Long 
     -memberId: String 
     -name: String
-    -point: BigDecimal 
+    -point: Point 
     +chargePoint(amount: BigDecimal)
     +usePoint(amount: BigDecimal)
   }

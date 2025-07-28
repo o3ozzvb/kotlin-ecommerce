@@ -5,20 +5,12 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
-@Entity
-@Table(name = "brand")
-class Brand(
-    name: String,
-    description: String,
-) : BaseEntity() {
-    @Column(name = "name", nullable = false)
-    var name: String = name
-        protected set
-
-    @Column(name = "description", nullable = false)
-    var description: String = description
-        protected set
-
-
-
+data class Brand(
+    val id: Long,
+    val name: String,
+    val description: String,
+) {
+    init {
+        require(name.isNotBlank()) { "Name cannot be blank" }
+    }
 }

@@ -29,6 +29,7 @@ classDiagram
 	  +add(quantity: Int)
 	  +reserve(quantity: Int): Boolean
 	  +releaseReservation(quantity: Int)
+	  +isAvailable(): Boolean
   }
   class Brand {
     -id: Long 

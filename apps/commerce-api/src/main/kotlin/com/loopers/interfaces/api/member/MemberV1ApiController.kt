@@ -1,4 +1,4 @@
-package com.loopers.interfaces.api.user
+package com.loopers.interfaces.api.member
 
 import com.loopers.application.user.UserFacade
 import com.loopers.interfaces.api.ApiResponse
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/api/v1/users")
-class UserV1ApiController(
+class MemberV1ApiController(
     private val userFacade: UserFacade,
-) : UserV1ApiSpec {
+) : MemberV1ApiSpec {
 
     @PostMapping
     fun signUp(
-        @RequestBody request: UserV1Dto.Request.SignUp,
-    ): ApiResponse<UserV1Dto.Response.UserResponse> {
+        @RequestBody request: MemberV1Dto.Request.SignUp,
+    ): ApiResponse<MemberV1Dto.Response.UserResponse> {
         /*
         return UserV1Dto.Response.UserResponse(
             userId = "oeunkyoung",
@@ -34,19 +34,19 @@ class UserV1ApiController(
          */
 
         return userFacade.signUp(request.toCommand())
-            .let { UserV1Dto.Response.UserResponse.from(it) }
+            .let { MemberV1Dto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }
 
     @GetMapping("/me")
     fun me(
         request: HttpServletRequest,
-    ): ApiResponse<UserV1Dto.Response.UserResponse> {
+    ): ApiResponse<MemberV1Dto.Response.UserResponse> {
         val userId = request.getHeader("X-USER-ID")
             ?: throw IllegalArgumentException("X_USER_ID 헤더가 필요합니다.")
 
         return userFacade.me(userId)
-            .let { UserV1Dto.Response.UserResponse.from(it) }
+            .let { MemberV1Dto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }
 }

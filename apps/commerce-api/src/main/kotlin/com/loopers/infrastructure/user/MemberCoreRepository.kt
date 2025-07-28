@@ -1,23 +1,23 @@
 package com.loopers.infrastructure.user
 
-import com.loopers.domain.user.UserCriteria
-import com.loopers.domain.user.UserEntity
-import com.loopers.domain.user.UserRepository
+import com.loopers.domain.member.MemberCriteria
+import com.loopers.domain.member.Member
+import com.loopers.domain.member.MemberRepository
 import org.springframework.stereotype.Component
 
 @Component
-class UserCoreRepository(
+class MemberCoreRepository(
     private val userEntityJpaRepository: UserEntityJpaRepository,
-) : UserRepository {
-    override fun save(user: UserEntity): UserEntity {
+) : MemberRepository {
+    override fun save(user: Member): Member {
         return userEntityJpaRepository.save(user)
     }
 
-    override fun find(userId: String): UserEntity? {
+    override fun find(userId: String): Member? {
         return userEntityJpaRepository.findByUserId(userId)
     }
 
-    override fun find(criteria: UserCriteria): List<UserEntity> {
+    override fun find(criteria: MemberCriteria): List<Member> {
         /*
         val query = queryUnderstandingEngine.understand(criteria)
 

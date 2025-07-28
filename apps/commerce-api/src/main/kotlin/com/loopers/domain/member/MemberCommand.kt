@@ -1,13 +1,13 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import com.loopers.support.error.CoreException
 import com.loopers.support.error.ErrorType
 
-class UserCommand {
+class MemberCommand {
     data class Create(
         val userId: String,
         val name: String,
-        val gender: UserEntity.Gender,
+        val gender: Member.Gender,
         val birthday: String,
         val email: String,
     ) {

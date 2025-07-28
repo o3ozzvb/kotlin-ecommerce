@@ -1,4 +1,4 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.loopers.domain.BaseEntity

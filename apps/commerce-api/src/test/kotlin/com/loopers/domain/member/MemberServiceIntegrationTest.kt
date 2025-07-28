@@ -1,4 +1,4 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import com.loopers.utils.DatabaseCleanUp
 import org.junit.jupiter.api.AfterEach
@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest
  * - [ ]  이미 가입된 ID 로 회원가입 시도 시, 실패한다.
  */
 @SpringBootTest
-class UserServiceIntegrationTest(
-    private val userService: UserService,
+class MemberServiceIntegrationTest(
+    private val memberService: MemberService,
 //    private val userJpaRepository: UserJpaRepository,
     private val databaseCleanUp: DatabaseCleanUp,
 ) {

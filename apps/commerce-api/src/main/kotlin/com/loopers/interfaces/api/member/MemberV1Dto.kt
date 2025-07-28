@@ -1,10 +1,10 @@
-package com.loopers.interfaces.api.user
+package com.loopers.interfaces.api.member
 
 import com.loopers.application.user.UserInfo
-import com.loopers.domain.user.UserCommand
-import com.loopers.domain.user.UserEntity
+import com.loopers.domain.member.MemberCommand
+import com.loopers.domain.member.Member
 
-class UserV1Dto {
+class MemberV1Dto {
     class Request {
         data class SignUp(
             val userId: String,
@@ -13,13 +13,13 @@ class UserV1Dto {
             val birthDay: String,
             val email: String,
         ) {
-            fun toCommand(): UserCommand.Create {
-                return UserCommand.Create(
+            fun toCommand(): MemberCommand.Create {
+                return MemberCommand.Create(
                     userId = userId,
                     name = name,
                     gender = when (gender) {
-                        Gender.M -> UserEntity.Gender.M
-                        Gender.F -> UserEntity.Gender.F
+                        Gender.M -> Member.Gender.M
+                        Gender.F -> Member.Gender.F
                     },
                     birthday = birthDay,
                     email = email,
@@ -42,8 +42,8 @@ class UserV1Dto {
                         userId = userInfo.userId,
                         name = userInfo.name,
                         gender = when (userInfo.gender) {
-                            UserEntity.Gender.M -> Gender.M
-                            UserEntity.Gender.F -> Gender.F
+                            Member.Gender.M -> Gender.M
+                            Member.Gender.F -> Gender.F
                         },
                         birthDay = userInfo.birthDay,
                         email = userInfo.email,

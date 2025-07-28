@@ -1,4 +1,4 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import com.loopers.support.error.CoreException
 import com.loopers.support.error.ErrorType
@@ -6,27 +6,27 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class UserService(
-    private val userRepository: UserRepository,
+class MemberService(
+    private val memberRepository: MemberRepository,
 //    private val validator: UserValidator,
     ) {
 
     @Transactional
-    fun create(command: UserCommand.Create): UserEntity {
+    fun create(command: MemberCommand.Create): Member {
 //        validator.validate(command)
-        val user = UserEntity(command)
-        userRepository.save(user)
+        val user = Member(command)
+        memberRepository.save(user)
         return user
     }
 
     @Transactional
-    fun update(command: UserCommand.Update): UserEntity {
-        val user = userRepository.find(command.userId)
+    fun update(command: MemberCommand.Update): Member {
+        val user = memberRepository.find(command.userId)
             ?: throw CoreException(ErrorType.NOT_FOUND, "해당 사용자를 찾을 수 없습니다")
         return user
     }
 
-    fun find(userId: String): UserEntity? {
-        return userRepository.find(userId)
+    fun find(userId: String): Member? {
+        return memberRepository.find(userId)
     }
 }

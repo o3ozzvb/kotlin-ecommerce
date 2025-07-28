@@ -1,4 +1,4 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import com.loopers.domain.BaseEntity
 import jakarta.persistence.Column
@@ -7,17 +7,17 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "member")
-class UserEntity(
-    userId: String,
+class Member(
+    memberId: String,
     name: String,
     birthday: String,
     gender: Gender,
     email: String,
 ) : BaseEntity() {
     companion object {
-        fun from(command: UserCommand.Create): UserEntity {
-            return UserEntity(
-                userId = command.userId,
+        fun from(command: MemberCommand.Create): Member {
+            return Member(
+                memberId = command.userId,
                 name = command.name,
                 birthday = command.birthday,
                 gender = command.gender,
@@ -31,16 +31,16 @@ class UserEntity(
         F,
     }
 
-    constructor(command: UserCommand.Create) : this(
-        userId = command.userId,
+    constructor(command: MemberCommand.Create) : this(
+        memberId = command.userId,
         name = command.name,
         birthday = command.birthday,
         gender = command.gender,
         email = command.email,
     )
 
-    @Column(name = "user_id", nullable = false)
-    val userId: String = userId
+    @Column(name = "member_id", nullable = false)
+    val memberId: String = memberId
 
     @Column(name = "name", nullable = false)
     var name: String = name
@@ -57,7 +57,7 @@ class UserEntity(
     var email: String = email
         protected set
 
-    fun update(command: UserCommand.Update) {
+    fun update(command: MemberCommand.Update) {
         command.name?.let { this.name = it }
         command.birthday?.let { this.birthday = it }
         command.email?.let { this.email = it }

@@ -1,15 +1,15 @@
-package com.loopers.domain.user
+package com.loopers.domain.member
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import com.loopers.domain.fixture.UserFixture
+import com.loopers.domain.fixture.MemberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.provider.CsvSource
 
-class UserTest {
+class MemberTest {
 
     @DisplayName("회원가입 할 때, 실패 테스트")
     @Nested
@@ -20,7 +20,7 @@ class UserTest {
         fun createMember_whenIDFormatIsNotValid(invalidUserId: String) {
             // act & assert
             assertThrows<IllegalArgumentException> {
-                UserFixture.valid(userId = invalidUserId)
+                MemberFixture.valid(userId = invalidUserId)
             }
         }
 
@@ -30,7 +30,7 @@ class UserTest {
         fun createMember_whenEmailFormatIsNotValid(invalidEmail: String) {
             // act & assert
             assertThrows<IllegalArgumentException> {
-                UserFixture.valid(email = invalidEmail)
+                MemberFixture.valid(email = invalidEmail)
             }
         }
 
@@ -40,7 +40,7 @@ class UserTest {
         fun createMember_whenBirthdayFormatIsNotValid(invalidBirthday: String) {
             // act & assert
             assertThrows<IllegalArgumentException> {
-                UserFixture.valid(birthday = invalidBirthday)
+                MemberFixture.valid(birthday = invalidBirthday)
             }
         }
     }

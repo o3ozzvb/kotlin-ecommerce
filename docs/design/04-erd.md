@@ -44,10 +44,11 @@ erDiagram
         varchar updated_by "수정자"
     }
     
-    %% 상품별 좋아요 집계 테이블
-    PRODUCT_LIKE {
+    %% 상품별 지표 집계 테이블
+    PRODUCT_METRICS {
         bigint product_id PK "상품 ID"
         bigint like_count "상품 총 좋아요 수"
+        bigint sale_count "상품 총 판매량"
         timestamp created_at "생성일시"
         timestamp updated_at "수정일시"
     }

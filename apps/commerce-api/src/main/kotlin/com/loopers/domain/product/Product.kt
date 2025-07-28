@@ -1,34 +1,30 @@
 package com.loopers.domain.product
 
-import com.loopers.domain.BaseEntity
 import com.loopers.domain.brand.Brand
 import com.loopers.domain.inventory.Inventory
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
 import java.math.BigDecimal
 
-@Entity
-@Table(name = "product")
-class Product(
-    name: String,
-    brand: Brand,
-    inventory: Inventory,
-    price: BigDecimal,
-) : BaseEntity() {
-    @Column(name = "name", nullable = false)
-    var name: String = name
-        protected set
+data class Product(
+    val id: Long,
+    private var name: String,
+    val brand: Brand,
+    private val inventory: Inventory,
+    private var price: BigDecimal,
+) {
+    fun consumeStock(quantity: Int): Product {
+        val newInventory = inventory.consume(quantity)
+        return copy(inventory = newInventory)
+    }
 
-    @Column(name = "brand_id", nullable = false)
-    var brand_id: Long = brand.id
-        protected set
+    fun addStock(quantity: Int): Product {
+        val newInventory = inventory.add(quantity)
+        return copy(inventory = newInventory)
+    }
 
-    @Column(name = "inventory_id", nullable = false)
-    var inventory_id: Long = inventory.id
-        protected set
+    fun isAvailable(): Boolean = inventory.isAvailable()
 
-    @Column(name = "price", nullable = false)
-    var price: BigDecimal = price
-        protected set
+    fun updatePrice(price: BigDecimal) {
+        this.price = price
+    }
+
 }

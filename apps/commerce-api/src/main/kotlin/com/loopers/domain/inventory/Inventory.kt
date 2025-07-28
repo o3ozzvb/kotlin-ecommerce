@@ -5,23 +5,40 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
-@Entity
-@Table(name = "inventory")
-class Inventory(
-    totalStock: Int = 0,
-    actualStock: Int = 0,
-    availableStock: Int = 0,
-) : BaseEntity() {
-    @Column(name = "total_stock", nullable = false)
-    var totalStock: Int = totalStock
-        protected set
+data class Inventory(
+    val id: Long,
+    private var totalStock: Int,
+    private var actualStock: Int,
+    private var availableStock: Int,
+) {
+    fun consume(quantity: Int): Inventory {
+        require(quantity > 0) { "소비 수량은 0보다 커야 합니다." }
+        require(availableStock >= quantity) { "재고가 부족합니다. 요청: $quantity, 가용: $availableStock" }
 
-    @Column(name = "actual_stock", nullable = false)
-    var actualStock: Int = actualStock
-        protected set
+        return copy(
+            totalStock = totalStock - quantity,
+            availableStock = availableStock - quantity,
+            actualStock = actualStock - quantity,
+        )
+    }
 
-    @Column(name = "available_stock", nullable = false)
-    var availableStock: Int = availableStock
-        protected set
+    fun add(quantity: Int): Inventory {
+        require(quantity > 0) { "추가 수량은 0보다 커야 합니다." }
 
+        return copy(
+            totalStock = totalStock + quantity,
+            availableStock = availableStock + quantity,
+            actualStock = actualStock + quantity,
+        )
+    }
+
+    fun reserve(quantity: Int): Inventory {
+        return copy(
+            availableStock = availableStock - quantity,
+        )
+    }
+
+    fun isAvailable(): Boolean {
+        return availableStock > 0
+    }
 }

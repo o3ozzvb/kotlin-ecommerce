@@ -1,12 +1,17 @@
 package com.loopers.domain
 
 import jakarta.persistence.Column
+import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PrePersist
 import jakarta.persistence.PreUpdate
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 /**
@@ -19,46 +24,25 @@ import java.time.ZonedDateTime
  * @property deletedAt 삭제 시점
  */
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    open val id: Long = 0
 
+    @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    lateinit var createdAt: ZonedDateTime
+    open var createdAt: LocalDateTime = LocalDateTime.now()
         protected set
 
+    @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    lateinit var updatedAt: ZonedDateTime
+    open var updatedAt: LocalDateTime = LocalDateTime.now()
         protected set
 
     @Column(name = "deleted_at")
-    var deletedAt: ZonedDateTime? = null
+    open var deletedAt: ZonedDateTime? = null
         protected set
-
-    /**
-     * 엔티티의 유효성을 검증한다.
-     *
-     * 이 메소드는 [PrePersist] 및 [PreUpdate] 시점에 호출된다.
-     */
-    open fun guard() = Unit
-
-    @PrePersist
-    private fun prePersist() {
-        guard()
-
-        val now = ZonedDateTime.now()
-        createdAt = now
-        updatedAt = now
-    }
-
-    @PreUpdate
-    private fun preUpdate() {
-        guard()
-
-        val now = ZonedDateTime.now()
-        updatedAt = now
-    }
 
     /**
      * delete 연산은 멱등하게 동작할 수 있도록 한다. (삭제된 엔티티를 다시 삭제해도 동일한 결과가 나오도록)

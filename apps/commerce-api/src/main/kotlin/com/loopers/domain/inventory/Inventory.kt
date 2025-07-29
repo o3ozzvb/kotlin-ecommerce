@@ -1,10 +1,5 @@
 package com.loopers.domain.inventory
 
-import com.loopers.domain.BaseEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
-
 data class Inventory(
     val id: Long,
     private var totalStock: Int,

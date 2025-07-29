@@ -31,7 +31,7 @@ class MemberV1ApiE2ETest @Autowired constructor(
         @Test
         fun returnUserInfo_whenSignUpSuccessful() {
             // arrange
-            //val requestUrl = ENDPOINT
+            // val requestUrl = ENDPOINT
 
             // act
 

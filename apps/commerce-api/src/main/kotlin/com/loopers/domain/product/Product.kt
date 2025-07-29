@@ -26,5 +26,4 @@ data class Product(
     fun updatePrice(price: BigDecimal) {
         this.price = price
     }
-
 }

@@ -1,6 +1,6 @@
 package com.loopers.interfaces.api.member
 
-import com.loopers.application.user.UserFacade
+import com.loopers.application.user.MemberFacade
 import com.loopers.interfaces.api.ApiResponse
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/users")
 class MemberV1ApiController(
-    private val userFacade: UserFacade,
+    private val memberFacade: MemberFacade,
 ) : MemberV1ApiSpec {
 
     @PostMapping
@@ -33,7 +33,7 @@ class MemberV1ApiController(
         ).let { ApiResponse.success(it)
          */
 
-        return userFacade.signUp(request.toCommand())
+        return memberFacade.signUp(request.toCommand())
             .let { MemberV1Dto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }
@@ -45,7 +45,7 @@ class MemberV1ApiController(
         val userId = request.getHeader("X-USER-ID")
             ?: throw IllegalArgumentException("X_USER_ID 헤더가 필요합니다.")
 
-        return userFacade.me(userId)
+        return memberFacade.me(userId)
             .let { MemberV1Dto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }

@@ -37,7 +37,7 @@ erDiagram
     }
     
     %% 상품별 지표 집계 테이블
-    PRODUCT_METRICS {
+    PRODUCT_METRIC {
         bigint product_id PK "상품 ID"
         bigint like_count "상품 총 좋아요 수"
         bigint sale_count "상품 총 판매량"

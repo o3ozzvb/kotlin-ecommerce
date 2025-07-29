@@ -1,6 +1,6 @@
 package com.loopers.interfaces.api.member
 
-import com.loopers.application.user.UserInfo
+import com.loopers.application.user.MemberInfo
 import com.loopers.domain.member.MemberCommand
 import com.loopers.domain.member.Member
 
@@ -37,16 +37,16 @@ class MemberV1Dto {
             val email: String,
         ) {
             companion object {
-                fun from(userInfo: UserInfo): UserResponse {
+                fun from(memberInfo: MemberInfo): UserResponse {
                     return UserResponse(
-                        userId = userInfo.userId,
-                        name = userInfo.name,
-                        gender = when (userInfo.gender) {
+                        userId = memberInfo.userId,
+                        name = memberInfo.name,
+                        gender = when (memberInfo.gender) {
                             Member.Gender.M -> Gender.M
                             Member.Gender.F -> Gender.F
                         },
-                        birthDay = userInfo.birthDay,
-                        email = userInfo.email,
+                        birthDay = memberInfo.birthDay,
+                        email = memberInfo.email,
                     )
                 }
             }

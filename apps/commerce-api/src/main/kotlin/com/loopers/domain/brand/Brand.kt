@@ -3,7 +3,7 @@ package com.loopers.domain.brand
 data class Brand(
     val id: Long,
     val name: String,
-    val description: String,
+    val description: String? = null,
 ) {
     init {
         require(name.isNotBlank()) { "Name cannot be blank" }

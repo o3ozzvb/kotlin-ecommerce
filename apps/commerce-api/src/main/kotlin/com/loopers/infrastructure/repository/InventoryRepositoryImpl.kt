@@ -2,8 +2,8 @@ package com.loopers.infrastructure.repository
 
 import com.loopers.domain.inventory.Inventory
 import com.loopers.domain.inventory.InventoryRepository
-import com.loopers.infrastructure.persistence.product.InventoryEntity
-import com.loopers.infrastructure.product.InventoryJpaRepository
+import com.loopers.infrastructure.persistence.inventory.InventoryEntity
+import com.loopers.infrastructure.persistence.inventory.InventoryJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository

@@ -14,10 +14,8 @@ class ProductService(
     private val inventoryRepository: InventoryRepository,
 ) {
     fun findProducts(brandId: Long?, sortBy: String, pageable: Pageable): Page<Product> {
-        // Use the new findProductsData method to avoid AOP issues
         val productDataPage = productRepository.findProductsData(brandId, sortBy, pageable)
 
-        // Convert ProductData to full Product objects with proper Brand and Inventory
         val products = productDataPage.content.map { productData ->
             val brand = brandRepository.findById(productData.brandId)
                 ?: throw IllegalStateException("Brand not found: ${productData.brandId}")

@@ -1,6 +1,5 @@
-package com.loopers.infrastructure.product
+package com.loopers.infrastructure.persistence.inventory
 
-import com.loopers.infrastructure.persistence.product.InventoryEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface InventoryJpaRepository : JpaRepository<InventoryEntity, Long> {

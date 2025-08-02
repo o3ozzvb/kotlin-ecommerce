@@ -1,6 +1,5 @@
-package com.loopers.infrastructure.product
+package com.loopers.infrastructure.persistence.product
 
-import com.loopers.infrastructure.persistence.product.ProductEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

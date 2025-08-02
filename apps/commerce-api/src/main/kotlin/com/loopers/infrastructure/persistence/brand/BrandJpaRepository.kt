@@ -1,6 +1,5 @@
-package com.loopers.infrastructure.product
+package com.loopers.infrastructure.persistence.brand
 
-import com.loopers.infrastructure.persistence.product.BrandEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface BrandJpaRepository : JpaRepository<BrandEntity, Long> {

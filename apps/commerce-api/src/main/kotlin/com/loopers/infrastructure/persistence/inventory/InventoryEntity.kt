@@ -1,4 +1,4 @@
-package com.loopers.infrastructure.persistence.product
+package com.loopers.infrastructure.persistence.inventory
 
 import com.loopers.domain.BaseEntity
 import jakarta.persistence.Column

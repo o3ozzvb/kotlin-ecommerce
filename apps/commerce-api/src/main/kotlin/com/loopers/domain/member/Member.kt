@@ -1,9 +1,6 @@
 package com.loopers.domain.member
 
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.Period
 
 data class Member(
     val id: Long? = null,
@@ -63,16 +60,6 @@ data class Member(
     }
 
     fun isActive(): Boolean = status == MemberStatus.ACTIVE
-
-    fun isAdult(): Boolean {
-        return try {
-            val birthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"))
-            val age = Period.between(birthDate, LocalDate.now()).years
-            age >= 19
-        } catch (e: Exception) {
-            false
-        }
-    }
 
     fun isMale(): Boolean = gender == Gender.M
 

@@ -1,16 +1,27 @@
 package com.loopers.domain.product
 
-import com.loopers.domain.BaseEntity
-import com.loopers.domain.member.Member
-import jakarta.persistence.Column
+import java.time.LocalDateTime
 
-class Like(
-    member: Member,
-    product: Product,
-    ) : BaseEntity() {
-    @Column(name = "member_id", nullable = false)
-    var memberId: Long = member.id
+data class Like(
+    val id: Long? = null,
+    val memberId: Long,
+    val productId: Long,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+) {
+    companion object {
+        fun create(memberId: Long, productId: Long): Like {
+            return Like(
+                memberId = memberId,
+                productId = productId,
+            )
+        }
+    }
 
-    @Column(name = "product_id", nullable = false)
-    var productId: Long = product.id
+    fun isSameUser(memberId: Long): Boolean {
+        return this.memberId == memberId
+    }
+
+    fun isSameProduct(productId: Long): Boolean {
+        return this.productId == productId
+    }
 }

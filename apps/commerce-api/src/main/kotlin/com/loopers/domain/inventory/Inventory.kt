@@ -2,9 +2,9 @@ package com.loopers.domain.inventory
 
 data class Inventory(
     val id: Long,
-    private var totalStock: Int,
-    private var actualStock: Int,
-    private var availableStock: Int,
+    val totalStock: Int,
+    val actualStock: Int,
+    val availableStock: Int,
 ) {
     fun consume(quantity: Int): Inventory {
         require(quantity > 0) { "소비 수량은 0보다 커야 합니다." }

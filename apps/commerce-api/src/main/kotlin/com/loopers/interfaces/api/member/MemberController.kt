@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/api/v1/users")
-class MemberV1ApiController(
+class MemberController(
     private val memberFacade: MemberFacade,
-) : MemberV1ApiSpec {
+) : MemberSpec {
 
     @PostMapping
     fun signUp(
-        @RequestBody request: MemberV1Dto.Request.SignUp,
-    ): ApiResponse<MemberV1Dto.Response.UserResponse> {
+        @RequestBody request: MemberDto.Request.SignUp,
+    ): ApiResponse<MemberDto.Response.UserResponse> {
         /*
         return UserV1Dto.Response.UserResponse(
             userId = "oeunkyoung",
@@ -34,19 +34,19 @@ class MemberV1ApiController(
          */
 
         return memberFacade.signUp(request.toCommand())
-            .let { MemberV1Dto.Response.UserResponse.from(it) }
+            .let { MemberDto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }
 
     @GetMapping("/me")
     fun me(
         request: HttpServletRequest,
-    ): ApiResponse<MemberV1Dto.Response.UserResponse> {
+    ): ApiResponse<MemberDto.Response.UserResponse> {
         val userId = request.getHeader("X-USER-ID")
             ?: throw IllegalArgumentException("X_USER_ID 헤더가 필요합니다.")
 
         return memberFacade.me(userId)
-            .let { MemberV1Dto.Response.UserResponse.from(it) }
+            .let { MemberDto.Response.UserResponse.from(it) }
             .let { ApiResponse.success(it) }
     }
 }

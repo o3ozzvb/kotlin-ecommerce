@@ -1,26 +1,56 @@
 package com.loopers.domain.product
 
-import com.loopers.domain.BaseEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
+import java.time.LocalDateTime
 
-@Entity
-@Table(name = "product_metrics")
-class ProductMetrics(
-    productId: Long,
-    likeCount: Int,
-    salesCount: Int,
-) : BaseEntity() {
-    @Column(name = "product_id", nullable = false)
-    var productId: Long? = null
-        protected set
+data class ProductMetrics(
+    val id: Long? = null,
+    val productId: Long,
+    val likeCount: Int,
+    val salesCount: Int,
+    val viewCount: Int = 0,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+) {
+    companion object {
+        fun initialize(productId: Long): ProductMetrics {
+            return ProductMetrics(
+                productId = productId,
+                likeCount = 0,
+                salesCount = 0,
+                viewCount = 0,
+            )
+        }
+    }
 
-    @Column(name = "like_count", nullable = false)
-    var likeCount: Int? = null
-        protected set
+    fun incrementLike(): ProductMetrics {
+        return copy(
+            likeCount = likeCount + 1,
+            updatedAt = LocalDateTime.now(),
+        )
+    }
 
-    @Column(name = "sales_count", nullable = false)
-    var salesCount: Int? = null
-        protected set
+    fun decrementLike(): ProductMetrics {
+        return copy(
+            likeCount = maxOf(0, likeCount - 1),
+            updatedAt = LocalDateTime.now(),
+        )
+    }
+
+    fun incrementSales(): ProductMetrics {
+        return copy(
+            salesCount = salesCount + 1,
+            updatedAt = LocalDateTime.now(),
+        )
+    }
+
+    fun incrementView(): ProductMetrics {
+        return copy(
+            viewCount = viewCount + 1,
+            updatedAt = LocalDateTime.now(),
+        )
+    }
+
+    fun getTotalEngagement(): Int {
+        return likeCount + viewCount
+    }
 }

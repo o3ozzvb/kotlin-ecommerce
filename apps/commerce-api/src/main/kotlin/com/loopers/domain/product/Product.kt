@@ -6,10 +6,10 @@ import java.math.BigDecimal
 
 data class Product(
     val id: Long,
-    private var name: String,
+    val name: String,
     val brand: Brand,
-    private val inventory: Inventory,
-    private var price: BigDecimal,
+    val inventory: Inventory,
+    val price: BigDecimal,
 ) {
     fun consumeStock(quantity: Int): Product {
         val newInventory = inventory.consume(quantity)
@@ -23,7 +23,7 @@ data class Product(
 
     fun isAvailable(): Boolean = inventory.isAvailable()
 
-    fun updatePrice(price: BigDecimal) {
-        this.price = price
+    fun updatePrice(newPrice: BigDecimal): Product {
+        return copy(price = newPrice)
     }
 }

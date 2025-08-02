@@ -1,21 +1,32 @@
 package com.loopers.domain.member
 
-import com.loopers.domain.BaseEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.Period
 
-@Entity
-@Table(name = "member")
-class Member(
-    memberId: String,
-    name: String,
-    birthday: String,
-    gender: Gender,
-    email: String,
-) : BaseEntity() {
+data class Member(
+    val id: Long? = null,
+    val memberId: String,
+    val name: String,
+    val birthday: String,
+    val gender: Gender,
+    val email: String,
+    val status: MemberStatus = MemberStatus.ACTIVE,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+) {
+    enum class Gender { M, F }
+
+    enum class MemberStatus {
+        ACTIVE,
+        INACTIVE,
+        SUSPENDED,
+        WITHDRAWN,
+    }
+
     companion object {
-        fun from(command: MemberCommand.Create): Member {
+        fun create(command: MemberCommand.Create): Member {
             return Member(
                 memberId = command.userId,
                 name = command.name,
@@ -26,40 +37,46 @@ class Member(
         }
     }
 
-    enum class Gender {
-        M,
-        F,
+    fun update(command: MemberCommand.Update): Member {
+        return copy(
+            name = command.name ?: this.name,
+            birthday = command.birthday ?: this.birthday,
+            email = command.email ?: this.email,
+            updatedAt = LocalDateTime.now(),
+        )
     }
 
-    constructor(command: MemberCommand.Create) : this(
-        memberId = command.userId,
-        name = command.name,
-        birthday = command.birthday,
-        gender = command.gender,
-        email = command.email,
-    )
-
-    @Column(name = "member_id", nullable = false)
-    val memberId: String = memberId
-
-    @Column(name = "name", nullable = false)
-    var name: String = name
-        protected set
-
-    @Column(name = "birthday", nullable = false)
-    var birthday: String = birthday
-        protected set
-
-    @Column(name = "gender", nullable = false)
-    var gender: Gender = gender
-
-    @Column(name = "email", nullable = false)
-    var email: String = email
-        protected set
-
-    fun update(command: MemberCommand.Update) {
-        command.name?.let { this.name = it }
-        command.birthday?.let { this.birthday = it }
-        command.email?.let { this.email = it }
+    fun activate(): Member {
+        return copy(status = MemberStatus.ACTIVE, updatedAt = LocalDateTime.now())
     }
+
+    fun deactivate(): Member {
+        return copy(status = MemberStatus.INACTIVE, updatedAt = LocalDateTime.now())
+    }
+
+    fun suspend(): Member {
+        return copy(status = MemberStatus.SUSPENDED, updatedAt = LocalDateTime.now())
+    }
+
+    fun withdraw(): Member {
+        return copy(status = MemberStatus.WITHDRAWN, updatedAt = LocalDateTime.now())
+    }
+
+    fun isActive(): Boolean = status == MemberStatus.ACTIVE
+
+    fun isAdult(): Boolean {
+        return try {
+            val birthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"))
+            val age = Period.between(birthDate, LocalDate.now()).years
+            age >= 19
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun isMale(): Boolean = gender == Gender.M
+
+    fun isFemale(): Boolean = gender == Gender.F
+
+    fun canPerformAction(): Boolean = status == MemberStatus.ACTIVE
 }

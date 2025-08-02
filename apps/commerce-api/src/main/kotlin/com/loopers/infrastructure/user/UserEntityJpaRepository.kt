@@ -1,8 +1,8 @@
 package com.loopers.infrastructure.user
 
-import com.loopers.domain.member.Member
+import com.loopers.infrastructure.persistence.member.MemberEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserEntityJpaRepository : JpaRepository<Member, Long> {
-    fun findByUserId(userId: String): Member?
+interface UserEntityJpaRepository : JpaRepository<MemberEntity, Long> {
+    fun findByMemberId(memberId: String): MemberEntity?
 }

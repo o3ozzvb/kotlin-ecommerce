@@ -14,19 +14,20 @@ class MemberService(
     @Transactional
     fun create(command: MemberCommand.Create): Member {
 //        validator.validate(command)
-        val user = Member(command)
+        val user = Member.create(command)
         memberRepository.save(user)
         return user
     }
 
     @Transactional
     fun update(command: MemberCommand.Update): Member {
-        val user = memberRepository.find(command.userId)
+        val user = memberRepository.findByMemberId(command.userId)
             ?: throw CoreException(ErrorType.NOT_FOUND, "해당 사용자를 찾을 수 없습니다")
-        return user
+        val updatedUser = user.update(command)
+        return memberRepository.save(updatedUser)
     }
 
     fun find(userId: String): Member? {
-        return memberRepository.find(userId)
+        return memberRepository.findByMemberId(userId)
     }
 }

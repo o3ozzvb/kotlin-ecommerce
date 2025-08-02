@@ -4,7 +4,7 @@ import com.loopers.application.user.MemberInfo
 import com.loopers.domain.member.MemberCommand
 import com.loopers.domain.member.Member
 
-class MemberV1Dto {
+class MemberDto {
     class Request {
         data class SignUp(
             val userId: String,

@@ -13,7 +13,6 @@ class InventoryRepositoryImpl(
 
     override fun save(inventory: Inventory): Inventory {
         val entity = if (inventory.id != 0L) {
-            // Update existing entity
             val existingEntity = inventoryJpaRepository.findById(inventory.id).orElse(InventoryEntity())
             existingEntity.apply {
                 this.totalStock = inventory.totalStock
@@ -21,7 +20,6 @@ class InventoryRepositoryImpl(
                 this.availableStock = inventory.availableStock
             }
         } else {
-            // Create new entity
             InventoryEntity(
                 totalStock = inventory.totalStock,
                 actualStock = inventory.actualStock,
@@ -52,7 +50,6 @@ class InventoryRepositoryImpl(
             .map { it.toDomain() }
     }
 
-    // Entity -> Domain 변환
     private fun InventoryEntity.toDomain(): Inventory = Inventory(
         id = this.id,
         totalStock = this.totalStock,

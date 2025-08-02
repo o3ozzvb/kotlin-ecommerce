@@ -14,7 +14,6 @@ class MemberRepositoryImpl(
 
     override fun save(member: Member): Member {
         val entity = if (member.id != null) {
-            // Update existing entity
             val existingEntity = memberJpaRepository.findById(member.id).orElse(MemberEntity())
             existingEntity.memberId = member.memberId
             existingEntity.name = member.name
@@ -24,7 +23,6 @@ class MemberRepositoryImpl(
             existingEntity.status = member.status
             existingEntity
         } else {
-            // Create new entity
             MemberEntity(
                 memberId = member.memberId,
                 name = member.name,
@@ -79,11 +77,9 @@ class MemberRepositoryImpl(
     }
 
     override fun find(criteria: MemberCriteria): List<Member> {
-        // 간단한 구현 - 실제로는 criteria에 따른 복잡한 쿼리 필요
         return memberJpaRepository.findAll().map { it.toDomain() }
     }
 
-    // Entity -> Domain 변환
     private fun MemberEntity.toDomain(): Member = Member(
         id = this.id,
         memberId = this.memberId,

@@ -13,13 +13,11 @@ class LikeRepositoryImpl(
 
     override fun save(like: Like): Like {
         val entity = if (like.id != null) {
-            // Update existing entity
             val existingEntity = likeJpaRepository.findById(like.id).orElse(LikeEntity())
             existingEntity.memberId = like.memberId
             existingEntity.productId = like.productId
             existingEntity
         } else {
-            // Create new entity
             LikeEntity(
                 memberId = like.memberId,
                 productId = like.productId,
@@ -49,10 +47,6 @@ class LikeRepositoryImpl(
             .map { it.toDomain() }
     }
 
-    override fun countByProductId(productId: Long): Long {
-        return likeJpaRepository.countByProductId(productId)
-    }
-
     override fun existsByMemberIdAndProductId(memberId: Long, productId: Long): Boolean {
         return likeJpaRepository.existsByMemberIdAndProductId(memberId, productId)
     }
@@ -61,7 +55,6 @@ class LikeRepositoryImpl(
         likeJpaRepository.deleteById(id)
     }
 
-    // Entity -> Domain 변환
     private fun LikeEntity.toDomain(): Like = Like(
         id = this.id,
         memberId = this.memberId,

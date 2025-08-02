@@ -19,7 +19,6 @@ class ProductRepositoryImpl(
 
     override fun save(product: Product): Product {
         val entity = if (product.id != 0L) {
-            // Update existing product
             val existingEntity = productJpaRepository.findById(product.id).orElse(ProductEntity())
             existingEntity.name = product.name
             existingEntity.brandId = product.brand.id
@@ -27,7 +26,6 @@ class ProductRepositoryImpl(
             existingEntity.price = product.price
             existingEntity
         } else {
-            // Create new product
             ProductEntity(
                 name = product.name,
                 brandId = product.brand.id,
@@ -59,7 +57,6 @@ class ProductRepositoryImpl(
     }
 
     override fun findProducts(brandId: Long?, sortBy: String, pageable: Pageable): Page<Product> {
-        // Use simple JPA repository methods to avoid KotlinJDSL executor AOP issues
         val page = if (brandId != null) {
             productJpaRepository.findByBrandId(brandId, pageable)
         } else {
@@ -71,7 +68,6 @@ class ProductRepositoryImpl(
     }
 
     override fun findProductsData(brandId: Long?, sortBy: String, pageable: Pageable): Page<ProductData> {
-        // Use simple JPA repository methods to avoid KotlinJDSL executor AOP issues
         val page = if (brandId != null) {
             productJpaRepository.findByBrandId(brandId, pageable)
         } else {

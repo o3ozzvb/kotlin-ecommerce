@@ -14,7 +14,6 @@ class ProductMetricsRepositoryImpl(
 
     override fun save(productMetrics: ProductMetrics): ProductMetrics {
         val entity = if (productMetrics.id != null) {
-            // Update existing entity
             val existingEntity = productMetricsJpaRepository.findById(productMetrics.id).orElse(ProductMetricsEntity())
             existingEntity.apply {
                 this.productId = productMetrics.productId
@@ -23,7 +22,6 @@ class ProductMetricsRepositoryImpl(
                 this.viewCount = productMetrics.viewCount
             }
         } else {
-            // Create new entity
             ProductMetricsEntity(
                 productId = productMetrics.productId,
                 likeCount = productMetrics.likeCount,
@@ -67,7 +65,6 @@ class ProductMetricsRepositoryImpl(
             .map { it.toDomain() }
     }
 
-    // Entity -> Domain 변환
     private fun ProductMetricsEntity.toDomain(): ProductMetrics = ProductMetrics(
         id = this.id,
         productId = this.productId,

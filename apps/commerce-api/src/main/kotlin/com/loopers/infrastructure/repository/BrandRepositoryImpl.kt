@@ -13,13 +13,11 @@ class BrandRepositoryImpl(
 
     override fun save(brand: Brand): Brand {
         val entity = if (brand.id != 0L) {
-            // Update existing entity
             val existingEntity = brandJpaRepository.findById(brand.id).orElse(BrandEntity())
             existingEntity.name = brand.name
             existingEntity.description = brand.description
             existingEntity
         } else {
-            // Create new entity
             BrandEntity(
                 name = brand.name,
                 description = brand.description,
@@ -52,7 +50,6 @@ class BrandRepositoryImpl(
         brandJpaRepository.deleteById(id)
     }
 
-    // Entity -> Domain 변환
     private fun BrandEntity.toDomain(): Brand = Brand(
         id = this.id,
         name = this.name,

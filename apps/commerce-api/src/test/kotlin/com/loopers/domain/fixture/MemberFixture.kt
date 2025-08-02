@@ -1,7 +1,5 @@
 package com.loopers.domain.fixture
 
-import com.loopers.domain.member.User
-
 object MemberFixture {
     fun valid(
         userId: String = "lia123",

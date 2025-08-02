@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MemberV1ApiE2ETest @Autowired constructor(
+class MemberApiE2ETest @Autowired constructor(
     private val testRestTemplate: TestRestTemplate,
     // private val userJpaRepository: UserJpaRepository,
     private val databaseCleanUp: DatabaseCleanUp,

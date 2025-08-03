@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface ProductRepository {
-    fun save(product: Product): Product
+    fun save(productData: ProductData): ProductData
+    fun findById(id: Long): ProductData?
+    fun deleteById(id: Long)
 
     fun findProducts(
         brandId: Long?,

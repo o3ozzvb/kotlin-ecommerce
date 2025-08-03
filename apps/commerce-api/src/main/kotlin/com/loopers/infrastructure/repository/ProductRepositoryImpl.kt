@@ -17,24 +17,48 @@ class ProductRepositoryImpl(
     private val productMapper: ProductMapper,
 ) : ProductRepository {
 
-    override fun save(product: Product): Product {
-        val entity = if (product.id != 0L) {
-            val existingEntity = productJpaRepository.findById(product.id).orElse(ProductEntity())
-            existingEntity.name = product.name
-            existingEntity.brandId = product.brand.id
-            existingEntity.inventoryId = product.inventory.id
-            existingEntity.price = product.price
+    override fun save(productData: ProductData): ProductData {
+        val entity = if (productData.id != 0L) {
+            val existingEntity = productJpaRepository.findById(productData.id).orElse(ProductEntity())
+            existingEntity.name = productData.name
+            existingEntity.brandId = productData.brandId
+            existingEntity.inventoryId = productData.inventoryId
+            existingEntity.price = productData.price
             existingEntity
         } else {
             ProductEntity(
-                name = product.name,
-                brandId = product.brand.id,
-                inventoryId = product.inventory.id,
-                price = product.price,
+                name = productData.name,
+                brandId = productData.brandId,
+                inventoryId = productData.inventoryId,
+                price = productData.price,
             )
         }
         val savedEntity = productJpaRepository.save(entity)
-        return productMapper.toProduct(savedEntity)
+        return ProductData(
+            id = savedEntity.id,
+            name = savedEntity.name,
+            brandId = savedEntity.brandId,
+            inventoryId = savedEntity.inventoryId,
+            price = savedEntity.price,
+        )
+    }
+
+    override fun findById(id: Long): ProductData? {
+        return productJpaRepository.findById(id)
+            .map { entity ->
+                ProductData(
+                    id = entity.id,
+                    name = entity.name,
+                    brandId = entity.brandId,
+                    inventoryId = entity.inventoryId,
+                    price = entity.price,
+                )
+            }
+            .orElse(null)
+    }
+
+    override fun deleteById(id: Long) {
+        productJpaRepository.deleteById(id)
     }
 
     fun find(id: Long): Product? {

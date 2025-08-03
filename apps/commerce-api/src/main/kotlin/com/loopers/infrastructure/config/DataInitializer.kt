@@ -119,16 +119,24 @@ class DataInitializer(
             val brand = brands[brandIndex]
             val inventory = inventories[index]
 
-            val product = Product(
+            val productDataToSave = com.loopers.domain.product.ProductData(
                 id = 0L,
                 name = name,
-                brand = brand,
-                inventory = inventory,
+                brandId = brand.id,
+                inventoryId = inventory.id,
                 price = price,
             )
 
             logger.info("Creating product: $name (Brand: ${brand.name}, Price: $price)")
-            productRepository.save(product)
+            val savedProductData = productRepository.save(productDataToSave)
+
+            Product(
+                id = savedProductData.id,
+                name = savedProductData.name,
+                brand = brand,
+                inventory = inventory,
+                price = savedProductData.price,
+            )
         }
     }
 }

@@ -30,4 +30,9 @@ class MemberService(
     fun find(userId: String): Member? {
         return memberRepository.findByMemberId(userId)
     }
+
+    fun findById(userId: Long): Member {
+        return memberRepository.findById(userId)
+            ?: throw CoreException(ErrorType.NOT_FOUND, "해당 사용자를 찾을 수 없습니다")
+    }
 }

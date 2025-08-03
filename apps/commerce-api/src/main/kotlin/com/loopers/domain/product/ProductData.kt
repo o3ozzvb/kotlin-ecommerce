@@ -1,5 +1,7 @@
 package com.loopers.domain.product
 
+import com.loopers.domain.brand.Brand
+import com.loopers.domain.inventory.Inventory
 import java.math.BigDecimal
 
 data class ProductData(
@@ -8,4 +10,14 @@ data class ProductData(
     val brandId: Long,
     val inventoryId: Long,
     val price: BigDecimal,
-)
+) {
+    fun toProduct(brand: Brand, inventory: Inventory): Product {
+        return Product(
+            id = this.id,
+            name = this.name,
+            brand = brand,
+            inventory = inventory,
+            price = this.price,
+        )
+    }
+}

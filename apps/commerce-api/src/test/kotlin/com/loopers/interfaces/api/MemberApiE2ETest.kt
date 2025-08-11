@@ -10,11 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-<<<<<<<< HEAD:apps/commerce-api/src/test/kotlin/com/loopers/interfaces/api/MemberApiE2ETest.kt
 class MemberApiE2ETest @Autowired constructor(
-========
-class MemberV1ApiE2ETest @Autowired constructor(
->>>>>>>> origin/feature/round-3-like:apps/commerce-api/src/test/kotlin/com/loopers/interfaces/api/MemberV1ApiE2ETest.kt
     private val testRestTemplate: TestRestTemplate,
     // private val userJpaRepository: UserJpaRepository,
     private val databaseCleanUp: DatabaseCleanUp,

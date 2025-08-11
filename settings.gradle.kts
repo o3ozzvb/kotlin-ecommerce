@@ -3,6 +3,7 @@ rootProject.name = "kotlin-ecommerce"
 include(
     ":apps:commerce-api",
     ":modules:jpa",
+    ":modules:redis",
     ":supports:jackson",
     ":supports:logging",
     ":supports:monitoring",

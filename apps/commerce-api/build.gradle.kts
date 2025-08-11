@@ -5,6 +5,7 @@ plugins {
 dependencies {
     // add-ons
     implementation(project(":modules:jpa"))
+    implementation(project(":modules:redis"))
     implementation(project(":supports:jackson"))
     implementation(project(":supports:logging"))
     implementation(project(":supports:monitoring"))
@@ -16,6 +17,7 @@ dependencies {
 
     // querydsl
     kapt("com.querydsl:querydsl-apt::jakarta")
+    kapt("com.querydsl:querydsl-apt::jakarta")
 
     // kotlin-jdsl
     implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.5")
@@ -24,4 +26,5 @@ dependencies {
 
     // test-fixtures
     testImplementation(testFixtures(project(":modules:jpa")))
+    testImplementation(testFixtures(project(":modules:redis")))
 }

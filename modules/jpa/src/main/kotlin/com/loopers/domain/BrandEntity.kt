@@ -6,10 +6,19 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "brand")
-data class BrandEntity(
+class BrandEntity() : BaseEntity() {
+
     @Column(nullable = false, length = 100)
-    val name: String,
+    var name: String = ""
 
     @Column(length = 500)
-    val description: String? = null,
-) : BaseEntity()
+    var description: String? = null
+
+    constructor(
+        name: String,
+        description: String? = null,
+    ) : this() {
+        this.name = name
+        this.description = description
+    }
+}

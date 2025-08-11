@@ -1,9 +1,9 @@
 package com.loopers.infrastructure.repository
 
+import com.loopers.domain.BrandEntity
 import com.loopers.domain.brand.Brand
 import com.loopers.domain.brand.BrandRepository
-import com.loopers.infrastructure.persistence.brand.BrandEntity
-import com.loopers.infrastructure.persistence.brand.BrandJpaRepository
+import com.loopers.repository.BrandJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository

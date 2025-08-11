@@ -3,8 +3,8 @@ package com.loopers.infrastructure.repository
 import com.loopers.domain.member.Member
 import com.loopers.domain.member.MemberCriteria
 import com.loopers.domain.member.MemberRepository
-import com.loopers.infrastructure.persistence.member.MemberEntity
-import com.loopers.infrastructure.persistence.member.MemberJpaRepository
+import com.loopers.domain.MemberEntity
+import com.loopers.repository.MemberJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -18,18 +18,18 @@ class MemberRepositoryImpl(
             existingEntity.memberId = member.memberId
             existingEntity.name = member.name
             existingEntity.birthday = member.birthday
-            existingEntity.gender = member.gender
+            existingEntity.gender = MemberEntity.Gender.valueOf(member.gender.name)
             existingEntity.email = member.email
-            existingEntity.status = member.status
+            existingEntity.status = MemberEntity.MemberStatus.valueOf(member.status.name)
             existingEntity
         } else {
             MemberEntity(
                 memberId = member.memberId,
                 name = member.name,
                 birthday = member.birthday,
-                gender = member.gender,
+                gender = MemberEntity.Gender.valueOf(member.gender.name),
                 email = member.email,
-                status = member.status,
+                status = MemberEntity.MemberStatus.valueOf(member.status.name),
             )
         }
         val savedEntity = memberJpaRepository.save(entity)
@@ -59,17 +59,17 @@ class MemberRepositoryImpl(
     }
 
     override fun findAllByStatus(status: Member.MemberStatus): List<Member> {
-        return memberJpaRepository.findAllByStatus(status)
+        return memberJpaRepository.findAllByStatus(MemberEntity.MemberStatus.valueOf(status.name))
             .map { it.toDomain() }
     }
 
     override fun findAllByGender(gender: Member.Gender): List<Member> {
-        return memberJpaRepository.findAllByGender(gender)
+        return memberJpaRepository.findAllByGender(MemberEntity.Gender.valueOf(gender.name))
             .map { it.toDomain() }
     }
 
     override fun countByStatus(status: Member.MemberStatus): Long {
-        return memberJpaRepository.countByStatus(status)
+        return memberJpaRepository.countByStatus(MemberEntity.MemberStatus.valueOf(status.name))
     }
 
     override fun deleteById(id: Long) {
@@ -85,10 +85,10 @@ class MemberRepositoryImpl(
         memberId = this.memberId,
         name = this.name,
         birthday = this.birthday,
-        gender = this.gender,
+        gender = Member.Gender.valueOf(this.gender.name),
         email = this.email,
-        status = this.status,
-        createdAt = this.createdAt,
-        updatedAt = this.updatedAt,
+        status = Member.MemberStatus.valueOf(this.status.name),
+        createdAt = this.createdAt.toLocalDateTime(),
+        updatedAt = this.updatedAt.toLocalDateTime(),
     )
 }

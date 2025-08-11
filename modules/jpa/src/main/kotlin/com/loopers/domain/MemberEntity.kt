@@ -1,7 +1,5 @@
-package com.loopers.infrastructure.persistence.member
+package com.loopers.domain
 
-import com.loopers.domain.BaseEntity
-import com.loopers.domain.member.Member
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Enumerated
@@ -11,6 +9,9 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "member")
 class MemberEntity() : BaseEntity() {
+
+    enum class Gender { M, F }
+    enum class MemberStatus { ACTIVE, INACTIVE, SUSPENDED }
 
     @Column(name = "member_id", nullable = false, unique = true)
     var memberId: String = ""
@@ -23,22 +24,22 @@ class MemberEntity() : BaseEntity() {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    var gender: Member.Gender = Member.Gender.M
+    var gender: Gender = Gender.M
 
     @Column(name = "email", nullable = false)
     var email: String = ""
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    var status: Member.MemberStatus = Member.MemberStatus.ACTIVE
+    var status: MemberStatus = MemberStatus.ACTIVE
 
     constructor(
         memberId: String,
         name: String,
         birthday: String,
-        gender: Member.Gender,
+        gender: Gender,
         email: String,
-        status: Member.MemberStatus = Member.MemberStatus.ACTIVE,
+        status: MemberStatus = MemberStatus.ACTIVE,
     ) : this() {
         this.memberId = memberId
         this.name = name

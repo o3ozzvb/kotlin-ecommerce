@@ -6,13 +6,24 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "inventory")
-data class InventoryEntity(
+class InventoryEntity() : BaseEntity() {
+
     @Column(name = "total_stock", nullable = false)
-    val totalStock: Int,
+    var totalStock: Int = 0
 
     @Column(name = "actual_stock", nullable = false)
-    val actualStock: Int,
+    var actualStock: Int = 0
 
     @Column(name = "available_stock", nullable = false)
-    val availableStock: Int,
-) : BaseEntity()
+    var availableStock: Int = 0
+
+    constructor(
+        totalStock: Int,
+        actualStock: Int,
+        availableStock: Int,
+    ) : this() {
+        this.totalStock = totalStock
+        this.actualStock = actualStock
+        this.availableStock = availableStock
+    }
+}

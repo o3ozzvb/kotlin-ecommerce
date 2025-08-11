@@ -7,16 +7,29 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "product")
-data class ProductEntity(
+class ProductEntity() : BaseEntity() {
+
     @Column(nullable = false, length = 200)
-    val name: String,
+    var name: String = ""
 
     @Column(name = "brand_id", nullable = false)
-    val brandId: Long,
+    var brandId: Long = 0L
 
     @Column(name = "inventory_id", nullable = false)
-    val inventoryId: Long,
+    var inventoryId: Long = 0L
 
     @Column(nullable = false)
-    val price: BigDecimal,
-) : BaseEntity()
+    var price: BigDecimal = BigDecimal.ZERO
+
+    constructor(
+        name: String,
+        brandId: Long,
+        inventoryId: Long,
+        price: BigDecimal,
+    ) : this() {
+        this.name = name
+        this.brandId = brandId
+        this.inventoryId = inventoryId
+        this.price = price
+    }
+}

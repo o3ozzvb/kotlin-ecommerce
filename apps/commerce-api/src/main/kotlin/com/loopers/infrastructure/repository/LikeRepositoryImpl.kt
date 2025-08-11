@@ -1,9 +1,9 @@
 package com.loopers.infrastructure.repository
 
+import com.loopers.domain.LikeEntity
 import com.loopers.domain.product.Like
 import com.loopers.domain.product.LikeRepository
-import com.loopers.infrastructure.persistence.product.LikeEntity
-import com.loopers.infrastructure.persistence.product.LikeJpaRepository
+import com.loopers.repository.LikeJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -59,6 +59,6 @@ class LikeRepositoryImpl(
         id = this.id,
         memberId = this.memberId,
         productId = this.productId,
-        createdAt = this.createdAt,
+        createdAt = this.createdAt.toLocalDateTime(),
     )
 }

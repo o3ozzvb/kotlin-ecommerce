@@ -2,8 +2,8 @@ package com.loopers.infrastructure.repository
 
 import com.loopers.domain.product.ProductMetrics
 import com.loopers.domain.product.ProductMetricsRepository
-import com.loopers.infrastructure.persistence.product.ProductMetricsEntity
-import com.loopers.infrastructure.persistence.product.ProductMetricsJpaRepository
+import com.loopers.domain.ProductMetricsEntity
+import com.loopers.repository.ProductMetricsJpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
@@ -56,12 +56,12 @@ class ProductMetricsRepositoryImpl(
     }
 
     override fun findTopByLikeCount(): List<ProductMetrics> {
-        return productMetricsJpaRepository.findTopByLikeCount()
+        return productMetricsJpaRepository.findTop10ByOrderByLikeCountDesc()
             .map { it.toDomain() }
     }
 
     override fun findTopBySalesCount(): List<ProductMetrics> {
-        return productMetricsJpaRepository.findTopBySalesCount()
+        return productMetricsJpaRepository.findTop10ByOrderBySalesCountDesc()
             .map { it.toDomain() }
     }
 
@@ -71,7 +71,7 @@ class ProductMetricsRepositoryImpl(
         likeCount = this.likeCount,
         salesCount = this.salesCount,
         viewCount = this.viewCount,
-        createdAt = this.createdAt,
-        updatedAt = this.updatedAt,
+        createdAt = this.createdAt.toLocalDateTime(),
+        updatedAt = this.updatedAt.toLocalDateTime(),
     )
 }

@@ -7,13 +7,22 @@ import jakarta.persistence.UniqueConstraint
 
 @Entity
 @Table(
-    name = "like",
+    name = "`like`",
     uniqueConstraints = [UniqueConstraint(columnNames = ["member_id", "product_id"])],
 )
-data class LikeEntity(
+class LikeEntity() : BaseEntity() {
+
     @Column(name = "member_id", nullable = false)
-    val memberId: Long,
+    var memberId: Long = 0L
 
     @Column(name = "product_id", nullable = false)
-    val productId: Long,
-) : BaseEntity()
+    var productId: Long = 0L
+
+    constructor(
+        memberId: Long,
+        productId: Long,
+    ) : this() {
+        this.memberId = memberId
+        this.productId = productId
+    }
+}

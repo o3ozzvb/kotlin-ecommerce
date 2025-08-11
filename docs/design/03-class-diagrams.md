@@ -12,11 +12,14 @@ classDiagram
     +isAvailable(): Boolean
     +updatePrice(price: BigDecimal)
   }
-  class ProductLike { 
+  class ProductMetrics { 
       -productId: Long
       -likeCount: Long
-      +like()
-      +unlike()
+      -salesCount: Long
+      +increaseLikes()
+      +decreaseLikes()
+      +increaseSales(quantity: Int)
+      +decreaseSales(quantity: Int)
   }
   class Inventory {
 	  -totalStock: Int 
@@ -26,6 +29,7 @@ classDiagram
 	  +add(quantity: Int)
 	  +reserve(quantity: Int): Boolean
 	  +releaseReservation(quantity: Int)
+	  +isAvailable(): Boolean
   }
   class Brand {
     -id: Long 

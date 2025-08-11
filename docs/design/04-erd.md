@@ -7,9 +7,7 @@ erDiagram
         varchar name "회원명"
         varchar status "회원 상태 (ACTIVE, INACTIVE)"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
 
     POINT {
@@ -17,9 +15,7 @@ erDiagram
         bigint member_id FK "포인트 소유자 회원 ID"
         decimal balance "포인트 잔액"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     BRAND {
@@ -27,9 +23,7 @@ erDiagram
         varchar name "브랜드명"
         varchar description "브랜드 상세 설명"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
 
     PRODUCT {
@@ -39,15 +33,14 @@ erDiagram
         bigint inventory_id FK "재고 정보 ID"
         decimal price "상품 판매가격"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
-    %% 상품별 좋아요 집계 테이블
-    PRODUCT_LIKE {
+    %% 상품별 지표 집계 테이블
+    PRODUCT_METRIC {
         bigint product_id PK "상품 ID"
         bigint like_count "상품 총 좋아요 수"
+        bigint sale_count "상품 총 판매량"
         timestamp created_at "생성일시"
         timestamp updated_at "수정일시"
     }
@@ -58,9 +51,7 @@ erDiagram
         int actual_stock "실제 재고 수량"
         int available_stock "판매 가능 재고 수량"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     LIKE {
@@ -68,6 +59,7 @@ erDiagram
         bigint member_id FK "회원 ID"
         bigint product_id FK "상품 ID"
         timestamp created_at "생성일시"
+        timestamp updated_at "수정일시"
         timestamp deleted_at "삭제일시"
     }
     
@@ -79,9 +71,7 @@ erDiagram
         decimal total_amount "총 주문 금액 (할인 전)"
         decimal final_amount "최종 주문 금액"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     ORDER_ITEM {
@@ -92,9 +82,7 @@ erDiagram
         decimal unit_price "주문 시점 상품 단가"
         decimal total_price "상품별 총액 (단가*수량)"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     PAYMENT {
@@ -103,9 +91,7 @@ erDiagram
         bigint order_id FK "주문 ID"
         decimal pay_amount "실제 결제 금액"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     COUPON {
@@ -117,9 +103,7 @@ erDiagram
         int issued_quantity "발행된 수량"
         varchar status "쿠폰 상태 (ACTIVE, INACTIVE, EXPIRED)"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     ISSUED_COUPON {
@@ -128,9 +112,7 @@ erDiagram
         bigint coupon_id FK "쿠폰 ID"
         varchar status "쿠폰 상태 (ISSUED, USED, EXPIRED, CANCELLED)"
         timestamp created_at "생성일시"
-        varchar created_by "생성자"
         timestamp updated_at "수정일시"
-        varchar updated_by "수정자"
     }
     
     %% Relationships

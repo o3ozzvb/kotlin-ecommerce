@@ -1,0 +1,4 @@
+### 상품 목록 조회
+GET {{commerce-api}}/products?brandId=1&sortBy=createdAt
+Content-Type: application/json
+

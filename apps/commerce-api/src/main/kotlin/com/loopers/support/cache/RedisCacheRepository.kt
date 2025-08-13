@@ -1,7 +1,6 @@
-package com.loopers.infrastructure.repository
+package com.loopers.support.cache
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.loopers.infrastructure.cache.CacheRepository
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.util.concurrent.TimeUnit

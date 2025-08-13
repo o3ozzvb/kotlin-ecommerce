@@ -1,6 +1,5 @@
 package com.loopers.domain.product
 
-import com.loopers.infrastructure.cache.ProductListCacheKey
 import org.springframework.data.domain.Page
 
 interface ProductCacheRepository {

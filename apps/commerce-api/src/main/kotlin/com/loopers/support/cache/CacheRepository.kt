@@ -1,4 +1,4 @@
-package com.loopers.infrastructure.cache
+package com.loopers.support.cache
 
 interface CacheRepository {
     fun <T> get(key: String, clazz: Class<T>): T?

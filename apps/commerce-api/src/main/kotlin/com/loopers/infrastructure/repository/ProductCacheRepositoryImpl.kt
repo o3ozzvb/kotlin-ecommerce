@@ -3,8 +3,8 @@ package com.loopers.infrastructure.repository
 import com.loopers.domain.product.Product
 import com.loopers.domain.product.ProductCacheRepository
 import com.loopers.domain.product.ProductData
-import com.loopers.infrastructure.cache.CacheRepository
-import com.loopers.infrastructure.cache.ProductListCacheKey
+import com.loopers.support.cache.CacheRepository
+import com.loopers.domain.product.ProductListCacheKey
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Repository
 

@@ -1,4 +1,4 @@
-package com.loopers.infrastructure.cache
+package com.loopers.domain.product
 
 data class ProductListCacheKey(
     val brandId: Long? = null,

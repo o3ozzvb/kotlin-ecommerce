@@ -10,6 +10,7 @@ data class Product(
     val brand: Brand,
     val inventory: Inventory,
     val price: BigDecimal,
+    val likeCount: Long = 0L,
 ) {
     fun consumeStock(quantity: Int): Product {
         val newInventory = inventory.consume(quantity)

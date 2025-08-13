@@ -10,6 +10,7 @@ data class ProductData(
     val brandId: Long,
     val inventoryId: Long,
     val price: BigDecimal,
+    val likeCount: Long = 0L,
 ) {
     fun toProduct(brand: Brand, inventory: Inventory): Product {
         return Product(
@@ -18,6 +19,7 @@ data class ProductData(
             brand = brand,
             inventory = inventory,
             price = this.price,
+            likeCount = this.likeCount,
         )
     }
 }

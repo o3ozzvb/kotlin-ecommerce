@@ -21,15 +21,20 @@ class ProductEntity() : BaseEntity() {
     @Column(nullable = false)
     var price: BigDecimal = BigDecimal.ZERO
 
+    @Column(name = "like_count", nullable = false)
+    var likeCount: Long = 0L
+
     constructor(
         name: String,
         brandId: Long,
         inventoryId: Long,
         price: BigDecimal,
+        likeCount: Long = 0L,
     ) : this() {
         this.name = name
         this.brandId = brandId
         this.inventoryId = inventoryId
         this.price = price
+        this.likeCount = likeCount
     }
 }

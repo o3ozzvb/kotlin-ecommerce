@@ -29,6 +29,7 @@ class ProductMapper(
             brand = brandEntity.toBrand(),
             inventory = inventoryEntity.toInventory(),
             price = productEntity.price,
+            likeCount = productEntity.likeCount,
         )
     }
 

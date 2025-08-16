@@ -53,6 +53,13 @@ spring:
     activate:
       on-profile: dev
 
+server:
+  port: 8082
+
+management:
+  server:
+    port: 8083
+
 ---
 spring:
   config:

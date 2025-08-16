@@ -66,6 +66,7 @@ class Payment(
             throw CoreException(ErrorType.INTERNAL_ERROR, "결제승인은 대기상태에서만 가능합니다.")
         }
         status = TransactionStatus.SUCCESS
+        reason = "정상 승인되었습니다."
     }
 
     fun invalidCard() {

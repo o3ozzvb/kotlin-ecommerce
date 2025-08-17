@@ -1,14 +1,16 @@
 package com.loopers.infrastructure.repository
 
+import com.loopers.domain.ProductEntity
 import com.loopers.domain.product.Product
 import com.loopers.domain.product.ProductData
 import com.loopers.domain.product.ProductRepository
-import com.loopers.domain.ProductEntity
-import com.loopers.repository.ProductJpaRepository
 import com.loopers.infrastructure.ProductMapper
+import com.loopers.repository.ProductJpaRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -24,6 +26,7 @@ class ProductRepositoryImpl(
             existingEntity.brandId = productData.brandId
             existingEntity.inventoryId = productData.inventoryId
             existingEntity.price = productData.price
+            existingEntity.likeCount = productData.likeCount
             existingEntity
         } else {
             ProductEntity(
@@ -31,6 +34,7 @@ class ProductRepositoryImpl(
                 brandId = productData.brandId,
                 inventoryId = productData.inventoryId,
                 price = productData.price,
+                likeCount = productData.likeCount,
             )
         }
         val savedEntity = productJpaRepository.save(entity)
@@ -40,6 +44,7 @@ class ProductRepositoryImpl(
             brandId = savedEntity.brandId,
             inventoryId = savedEntity.inventoryId,
             price = savedEntity.price,
+            likeCount = savedEntity.likeCount,
         )
     }
 
@@ -52,6 +57,7 @@ class ProductRepositoryImpl(
                     brandId = entity.brandId,
                     inventoryId = entity.inventoryId,
                     price = entity.price,
+                    likeCount = entity.likeCount,
                 )
             }
             .orElse(null)
@@ -92,21 +98,35 @@ class ProductRepositoryImpl(
     }
 
     override fun findProductsData(brandId: Long?, sortBy: String, pageable: Pageable): Page<ProductData> {
+        val sortedPageable = createSortedPageable(sortBy, pageable)
         val page = if (brandId != null) {
-            productJpaRepository.findByBrandId(brandId, pageable)
+            productJpaRepository.findByBrandId(brandId, sortedPageable)
         } else {
-            productJpaRepository.findAll(pageable)
+            productJpaRepository.findAll(sortedPageable)
         }
 
-        val productData = page.content.map { entity ->
+        return page.map { entity ->
             ProductData(
                 id = entity.id,
                 name = entity.name,
                 brandId = entity.brandId,
                 inventoryId = entity.inventoryId,
                 price = entity.price,
+                likeCount = entity.likeCount,
             )
         }
-        return PageImpl(productData, pageable, page.totalElements)
+    }
+
+    private fun createSortedPageable(sortBy: String, pageable: Pageable): Pageable {
+        val sort = when (sortBy) {
+            "price_asc" -> Sort.by("price").ascending()
+            "price_desc" -> Sort.by("price").descending()
+            "name_asc" -> Sort.by("name").ascending()
+            "name_desc" -> Sort.by("name").descending()
+            "like_asc" -> Sort.by("likeCount").ascending()
+            "like_desc" -> Sort.by("likeCount").descending()
+            else -> Sort.by("id").ascending()
+        }
+        return PageRequest.of(pageable.pageNumber, pageable.pageSize, sort)
     }
 }

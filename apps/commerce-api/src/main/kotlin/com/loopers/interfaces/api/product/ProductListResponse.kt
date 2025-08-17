@@ -7,6 +7,6 @@ data class ProductListResponse(
     val name: String,
     val brandName: String,
     val price: BigDecimal,
-    val likeCount: Int,
+    val likeCount: Long,
     val isLiked: Boolean = false,
 )

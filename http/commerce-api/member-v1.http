@@ -1,0 +1,15 @@
+### 회원가입
+POST {{commerce-api}}/api/v1/users
+Content-Type: application/json
+
+{
+  "userId": "oeunkyoung",
+  "name": "응경",
+  "gender": "F",
+  "birthDay": "2000-11-12",
+  "email": "oeunkyoung@loopers.com"
+}
+
+### 내 정보 조회
+GET {{commerce-api}}//api/v1/users/me
+X-USER-ID: oeunkyoung

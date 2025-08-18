@@ -18,11 +18,6 @@ dependencies {
     // querydsl
     kapt("com.querydsl:querydsl-apt::jakarta")
 
-    // kotlin-jdsl
-    implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.5")
-    implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.5")
-    implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.5")
-
     // test-fixtures
     testImplementation(testFixtures(project(":modules:jpa")))
     testImplementation(testFixtures(project(":modules:redis")))

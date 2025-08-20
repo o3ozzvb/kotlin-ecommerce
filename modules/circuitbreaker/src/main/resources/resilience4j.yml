@@ -1,0 +1,18 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      pgCircuit:
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 60s # 외부 결제 API 호출 시 사용으로 안정성을 위해 최소 60s 기다림
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 2
+  retry:
+    instances:
+      pgRetry:
+        max-attempts: 3
+        wait-duration: 1s
+        retry-exceptions:
+          - feign.RetryableException # 네트워크 오류만 재시도, 비즈니스 오류는 제외
+        fail-after-max-attempts: true

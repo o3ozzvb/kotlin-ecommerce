@@ -50,3 +50,8 @@
 - 반환되는 결과에 따라 retry 여부를 결정하는 filter, true를 반환하면 retry하고 false로 반환하면 retry 하지 않음.
 ### failAfterMaxAttempts
 - 설정한 maxAttempts 만큼 재시도한 이후에도 여전히 `retryOnResultPredicate`를 통과하지 못했을 때 `MaxRetriesExceededException` 발생을 활성화/비활성화하는 boolean (기본값: false)
+
+# Resilience4j Core Modules
+## Priority (우선순위)
+###  Retry ( CircuitBreaker ( RateLimiter ( TimeLimiter ( BulkHead ( TargetFunction ) ) ) ) )
+- 위와 같은 우선순위로 모듈이 적용되며, Retry 모듈이 가장 마지막에 적용됨

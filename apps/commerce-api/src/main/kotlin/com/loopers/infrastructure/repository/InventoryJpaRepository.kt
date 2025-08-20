@@ -1,6 +1,6 @@
-package com.loopers.repository
+package com.loopers.infrastructure.repository
 
-import com.loopers.domain.InventoryEntity
+import com.loopers.infrastructure.entity.InventoryEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface InventoryJpaRepository : JpaRepository<InventoryEntity, Long> {

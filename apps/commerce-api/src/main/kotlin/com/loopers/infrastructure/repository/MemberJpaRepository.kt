@@ -1,6 +1,6 @@
-package com.loopers.repository
+package com.loopers.infrastructure.repository
 
-import com.loopers.domain.MemberEntity
+import com.loopers.infrastructure.entity.MemberEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface MemberJpaRepository : JpaRepository<MemberEntity, Long> {

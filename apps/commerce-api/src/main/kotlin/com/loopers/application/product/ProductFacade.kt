@@ -36,8 +36,7 @@ class ProductFacade(
     }
 
     fun findProductDetail(productId: Long, userId: Long?): ProductDetailInfo {
-        val productData = productService.findById(productId)
-            ?: throw IllegalArgumentException("Product not found: $productId")
+        val productData = productService.find(productId)
 
         val metrics = productMetricsService.getOrCreateMetrics(productId)
 
@@ -59,8 +58,7 @@ class ProductFacade(
     fun likeProduct(productId: Long, userId: Long) {
         memberService.findById(userId)
 
-        productService.findById(productId)
-            ?: throw IllegalArgumentException("Product not found: $productId")
+        productService.find(productId)
 
         val existingLike = likeService.isLikedByUser(userId, productId)
         if (!existingLike) {
@@ -72,8 +70,7 @@ class ProductFacade(
     fun unlikeProduct(productId: Long, userId: Long) {
         memberService.findById(userId)
 
-        productService.findById(productId)
-            ?: throw IllegalArgumentException("Product not found: $productId")
+        productService.find(productId)
 
         val existingLike = likeService.isLikedByUser(userId, productId)
         if (existingLike) {
@@ -100,8 +97,8 @@ class ProductFacade(
         }
 
         val pageProductIds = productIds.subList(startIndex, endIndex)
-        val products = pageProductIds.mapNotNull { productId ->
-            productService.findById(productId)?.let { productData ->
+        val products = pageProductIds.map { productId ->
+            productService.find(productId).let { productData ->
                 val brand = brandService.findById(productData.brandId)
                 val inventory = inventoryService.findById(productData.inventoryId)
                 productData.toProduct(brand, inventory)

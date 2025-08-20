@@ -1,13 +1,13 @@
 package com.loopers.infrastructure
 
-import com.loopers.domain.BrandEntity
-import com.loopers.domain.InventoryEntity
-import com.loopers.domain.ProductEntity
 import com.loopers.domain.brand.Brand
 import com.loopers.domain.inventory.Inventory
 import com.loopers.domain.product.Product
-import com.loopers.repository.BrandJpaRepository
-import com.loopers.repository.InventoryJpaRepository
+import com.loopers.infrastructure.entity.BrandEntity
+import com.loopers.infrastructure.entity.InventoryEntity
+import com.loopers.infrastructure.entity.ProductEntity
+import com.loopers.infrastructure.repository.BrandJpaRepository
+import com.loopers.infrastructure.repository.InventoryJpaRepository
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,6 +1,6 @@
-package com.loopers.repository
+package com.loopers.infrastructure.repository
 
-import com.loopers.domain.BrandEntity
+import com.loopers.infrastructure.entity.BrandEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface BrandJpaRepository : JpaRepository<BrandEntity, Long> {

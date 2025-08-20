@@ -1,5 +1,7 @@
 package com.loopers.domain.inventory
 
+import com.loopers.support.error.CoreException
+import com.loopers.support.error.ErrorType
 import org.springframework.stereotype.Service
 
 @Service
@@ -8,7 +10,7 @@ class InventoryService(
 ) {
     fun findById(id: Long): Inventory {
         return inventoryRepository.findById(id)
-            ?: throw IllegalStateException("Inventory not found: $id")
+            ?: throw CoreException(ErrorType.NOT_FOUND, "재고를 찾을 수 없습니다. ID: $id")
     }
 
     fun findAll(): List<Inventory> {
@@ -43,5 +45,12 @@ class InventoryService(
         val inventory = findById(inventoryId)
         val updatedInventory = inventory.reserve(quantity)
         return save(updatedInventory)
+    }
+
+    fun isAvailable(inventoryId: Long, quantity: Int) {
+        val inventory = findById(inventoryId)
+        if (inventory.availableStock < quantity) {
+            throw CoreException(ErrorType.BAD_REQUEST, "재고가 부족합니다. 요청: $quantity, 가용: ${inventory.availableStock}")
+        }
     }
 }

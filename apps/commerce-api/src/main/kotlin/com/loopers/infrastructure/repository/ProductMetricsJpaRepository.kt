@@ -1,6 +1,6 @@
-package com.loopers.repository
+package com.loopers.infrastructure.repository
 
-import com.loopers.domain.ProductMetricsEntity
+import com.loopers.infrastructure.entity.ProductMetricsEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ProductMetricsJpaRepository : JpaRepository<ProductMetricsEntity, Long> {

@@ -1,6 +1,6 @@
-package com.loopers.repository
+package com.loopers.infrastructure.repository
 
-import com.loopers.domain.LikeEntity
+import com.loopers.infrastructure.entity.LikeEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface LikeJpaRepository : JpaRepository<LikeEntity, Long> {

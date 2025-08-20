@@ -3,8 +3,7 @@ package com.loopers.infrastructure.repository
 import com.loopers.domain.member.Member
 import com.loopers.domain.member.MemberCriteria
 import com.loopers.domain.member.MemberRepository
-import com.loopers.domain.MemberEntity
-import com.loopers.repository.MemberJpaRepository
+import com.loopers.infrastructure.entity.MemberEntity
 import org.springframework.stereotype.Repository
 
 @Repository

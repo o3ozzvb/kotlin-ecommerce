@@ -2,8 +2,7 @@ package com.loopers.infrastructure.repository
 
 import com.loopers.domain.product.ProductMetrics
 import com.loopers.domain.product.ProductMetricsRepository
-import com.loopers.domain.ProductMetricsEntity
-import com.loopers.repository.ProductMetricsJpaRepository
+import com.loopers.infrastructure.entity.ProductMetricsEntity
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 

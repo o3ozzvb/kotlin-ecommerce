@@ -1,9 +1,8 @@
 package com.loopers.infrastructure.repository
 
-import com.loopers.domain.LikeEntity
+import com.loopers.infrastructure.entity.LikeEntity
 import com.loopers.domain.product.Like
 import com.loopers.domain.product.LikeRepository
-import com.loopers.repository.LikeJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
